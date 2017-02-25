@@ -11,10 +11,10 @@ app.set('view engine', 'handlebars');
 // Set Static Folder
 app.use(express.static(path.join(__dirname, 'public')));
 
+var mysql = require('mysql');
 
 app.get('/', function(req, res) {
 
-    var mysql = require('mysql');
     var connection = mysql.createConnection({
         host: 'localhost',
         user: 'mohsenhq',
@@ -34,7 +34,7 @@ app.get('/', function(req, res) {
             if (err) throw err;
 
             for (var i in rows) {
-                console.log('Post Titles: ', rows[i]);
+                // console.log('Post Titles: ', rows[i]);
             }
             res.render("home", { apps: rows });
 
@@ -46,6 +46,11 @@ app.get('/', function(req, res) {
         console.log('Done connected as id ' + connection.threadId);
         // res.render("home");
     });
+});
+
+app.get('/Edit/*', function(req, res) {
+    console.log(req.params[0]);
+    res.redirect('/');
 });
 
 var server = app.listen(5000, function() {
