@@ -41,18 +41,35 @@ app.get('/', function(req, res) {
         });
 
         connection.end();
-
-
-        console.log('Done connected as id ' + connection.threadId);
-        // res.render("home");
     });
 });
 
 app.get('/Edit/*', function(req, res) {
-    console.log(req.params[0]);
+
+    var connection = mysql.createConnection({
+        host: 'localhost',
+        user: 'mohsenhq',
+        password: 'mohsenhqw',
+        database: 'eram_tickets'
+    });
+
+    connection.connect(function(err) {
+        if (err) {
+            console.error('error connecting: ' + err.stack);
+            return;
+        }
+
+        var queryString = 'SELECT ' + req.params[0] + ' FROM tickets';
+
+        connection.query('UPDATE tickets SET ride = ? Where ride = ?', ['bike', req.params[0]],
+            function(err, result) {
+                if (err) throw err;
+            });
+        connection.end();
+    });
     res.redirect('/');
 });
 
 var server = app.listen(5000, function() {
-    console.log('Server is running..');
+    console.log('Server is running on port 5000');
 });
