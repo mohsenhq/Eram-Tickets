@@ -1,0 +1,51 @@
+<h1></h1>
+<h2 class="page-header">Tickets</h2>
+<body>
+<p></p>
+<p id="data"></p>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+{{#if apps}}
+<div class="table-responsive">
+<table  class="table">
+   <tbody>
+       <tr >
+           <th style="width: 30%;">
+               <font size=4> <b>Ride</b> </font>
+           </th>
+           
+           <th style="width: 30%;">
+                <font size=4> <b>Price</b> </font>
+           </th>
+           <th style="width: 30%;">
+                <font size=4> <b>Account</b> </font>
+           </th>             
+
+       </tr> 
+      {{#each apps}}
+      <tr>
+         <td style="width: 80%;">
+           <p style="text-align:left;">
+                 <font size=4> <b>{{this.ride}}</b> </font>
+              <span style="float:right;">{{this.price}}</span>
+                         <font color="#9B9A9A"> {{this.account}} </font>
+
+           </p>
+         </td>
+
+         <td style="text-align:right;">
+           <div class="btn-group">
+            
+           <a class="input-group-addon"  href="/Build/{{this.appName}}">
+           <i type="button" class="fa fa-pencil-square-o fa-2x" aria-hidden="true" id="build" title="Build"></i>
+           </a>
+
+           </div>
+         </td>
+           
+      </tr>
+      {{/each}}
+   </tbody>
+</table>
+</div>
+{{/if}}
+</body>
