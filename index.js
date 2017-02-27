@@ -85,7 +85,43 @@ app.get('/addTicket', function(req, res) {
 
 // adding Tickets
 app.post('/addTicket', function(req, res) {
-    console.log(req.body);
+    var ride = req.body.ride;
+    var price = req.body.price;
+
+    var connection = mysql.createConnection({
+        host: 'localhost',
+        user: 'mohsenhq',
+        password: 'mohsenhqw',
+        database: 'eram_tickets'
+    });
+
+    connection.connect(function(err) {
+        if (err) {
+            console.error('error connecting: ' + err.stack);
+            return;
+        }
+
+        connection.query('INSERT INTO sold_tickets SET ?', {
+                date: date,
+                token: token,
+                ride: ride,
+                price: price,
+                ticketNumber: ticketNumber,
+                station: station,
+                address: address,
+                transactionDetails: transactionDetails,
+                used: 0
+            },
+            function(err, result) {
+                if (err) throw err;
+            });
+        connection.end();
+    });
+    res.redirect('/');
+});
+
+// Generate Tickets
+app.post('/addTicket', function(req, res) {
     var ride = req.body.ride;
     var price = req.body.price;
     var account = req.body.account
